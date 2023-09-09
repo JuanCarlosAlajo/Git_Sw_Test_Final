@@ -22,6 +22,9 @@ class MongoDriver:
 
     def insert_record(self, record: dict, username: str):
         self.client.get_database('pry_test_fin_tratam_datos').get_collection(f'{username}_TEST-FINAL').insert_one(record)
+    def consulta_record(self, username: str):
+        self.client.get_database('pry_test_fin_tratam_datos').get_collection(f'{username}_TEST-FINAL').find()
+
 
     def test_connection(self):
         try:
