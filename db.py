@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import os
 from datetime import datetime
 
+
 load_dotenv()
 
 
@@ -23,13 +24,11 @@ class MongoDriver:
     def insert_record(self, record: dict, username: str):
         self.client.get_database('pry_test_fin_tratam_datos').get_collection(f'{username}_TEST-FINAL').insert_one(record)
     def consulta_record(self,username: str):
-        #self.client.get_database('pry_test_fin_tratam_datos').get_collection(f'{username}_TEST-FINAL').count_documents({})
-
-        #db = self.client['pry_test_fin_tratam_datos']
         registros = self.client.get_database('pry_test_fin_tratam_datos').get_collection(f'{username}_TEST-FINAL').find({})
         return registros
-
-        #self.client.get_database('pry_test_fin_tratam_datos').get_collection('REGISTROS_TEST-FINAL').count_documents({})
+    def consulta_record_one(self,record: dict, username: str):
+        registros = self.client.get_database('pry_test_fin_tratam_datos').get_collection(f'{username}_TEST-FINAL').find_one(record)
+        return registros
 
     def test_connection(self):
         try:

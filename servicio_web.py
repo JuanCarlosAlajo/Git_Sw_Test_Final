@@ -7,6 +7,7 @@ from db import MongoDriver
 from datetime import datetime
 
 from bson import json_util
+from bson.objectid import ObjectId
 
 
 
@@ -41,6 +42,16 @@ def hello_world():
 def get_ws_datos():
     mongodb = MongoDriver()
     datos = mongodb.consulta_record(username="REGISTROS")
+    response = json_util.dumps(datos)
+    return Response(response, mimetype="application/json")
+
+@app.route('/ws_datos_id/<id>', methods=['GET'])
+def get_ws_datos_id(id):
+    mongodb = MongoDriver()
+    response_raw = {
+            "INSTITUCION": id
+            }
+    datos = mongodb.consulta_record_one(record=response_raw,username="REGISTROS")
     response = json_util.dumps(datos)
     return Response(response, mimetype="application/json")
 
