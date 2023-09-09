@@ -1,9 +1,9 @@
 
 import json
 
-import db
+import cnx_base_datos
 from flask import Flask, Response, request
-from db import MongoDriver
+from cnx_base_datos import MongoDriver
 from datetime import datetime
 
 from bson import json_util
