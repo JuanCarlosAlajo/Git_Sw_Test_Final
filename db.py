@@ -22,9 +22,14 @@ class MongoDriver:
 
     def insert_record(self, record: dict, username: str):
         self.client.get_database('pry_test_fin_tratam_datos').get_collection(f'{username}_TEST-FINAL').insert_one(record)
-    def consulta_record(self, username: str):
-        self.client.get_database('pry_test_fin_tratam_datos').get_collection(f'{username}_TEST-FINAL').find()
+    def consulta_record(self,username: str):
+        #self.client.get_database('pry_test_fin_tratam_datos').get_collection(f'{username}_TEST-FINAL').count_documents({})
 
+        #db = self.client['pry_test_fin_tratam_datos']
+        registros = self.client.get_database('pry_test_fin_tratam_datos').get_collection(f'{username}_TEST-FINAL').find({})
+        return registros
+
+        #self.client.get_database('pry_test_fin_tratam_datos').get_collection('REGISTROS_TEST-FINAL').count_documents({})
 
     def test_connection(self):
         try:
@@ -36,10 +41,15 @@ class MongoDriver:
 
 if __name__ == "__main__":
     mi_base_de_datos = MongoDriver()
+
+    num_reg=mi_base_de_datos.consulta_record(username="REGISTROS")
+    print(num_reg)
+
+    '''
     mi_base_de_datos.insert_record(record={
         "titulo": "Audi A4",
         "detalles": {
-            "matricula": "982JHG",
+            "matricula": "AAABBB",
             "fechayhora": datetime.now(),
             "incidencias": [
                 "problema con el carter",
@@ -50,4 +60,5 @@ if __name__ == "__main__":
         },
         "precio": 100,
         "kms": 450000},
-        username="JUANITO")
+        username="REGISTROS")
+'''

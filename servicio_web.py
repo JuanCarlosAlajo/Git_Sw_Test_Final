@@ -1,5 +1,7 @@
 
 import json
+
+import db
 from flask import Flask, Response, request
 from db import MongoDriver
 from datetime import datetime
@@ -23,24 +25,24 @@ def hello_world():
 
     mongodb.insert_record(record=response_raw, username="REGISTROS")
     '''
+
+    mongodb = MongoDriver()
+
+    datos = mongodb.consulta_record(username="REGISTROS")
+    # response = json_util.dumps(datos)
+    # return Response(response, mimetype="application/json")
+
+    #return Response(json.dumps(datos), mimetype='application/json')
+
     return "<h2>Hola.. Mi pais Ecuador 2023!</h2>"
+    #return datos
 
-
-@app.route("/datos", methods=['GET'])
-def ws_consultar_todo():
-     mongodb = MongoDriver()
-
-     datos=mongodb.consulta_record(username="CONSULTA")
-     #users = mongo.db.users.find()
-
-
-
-     response = json_util.dumps(datos)
-     return Response(response, mimetype="application/json")
-
-
-
-
+@app.route('/ws_datos', methods=['GET'])
+def get_ws_datos():
+    mongodb = MongoDriver()
+    datos = mongodb.consulta_record(username="REGISTROS")
+    response = json_util.dumps(datos)
+    return Response(response, mimetype="application/json")
 
 
 if __name__ == "__main__":
