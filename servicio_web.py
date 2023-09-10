@@ -16,27 +16,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello_world():
-    '''
-    mongodb = MongoDriver()
-    response_raw = {
-            "INSTITUCION": "cnt",
-            "ULTIMO-PRECIO": "10",
-            "FECHA_REGISTRO": datetime.now()
-            }
-
-    mongodb.insert_record(record=response_raw, username="REGISTROS")
-    '''
-
-    mongodb = MongoDriver()
-
-    datos = mongodb.consulta_record(username="REGISTROS")
-    # response = json_util.dumps(datos)
-    # return Response(response, mimetype="application/json")
-
-    #return Response(json.dumps(datos), mimetype='application/json')
-
     return "<h2>Hola.. Mi pais Ecuador 2023!</h2>"
-    #return datos
 
 @app.route('/ws_datos', methods=['GET'])
 def get_ws_datos():
